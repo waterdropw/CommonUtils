@@ -23,14 +23,29 @@
 namespace utils {
 namespace os {
 
+///! MUST BE identity with "utils.h"
+enum LogLevel {
+    ELL_DEBUG,
+    ELL_WARN,
+    ELL_ERROR,
+};
+
+#define PRINT_COLOR(ll, ...) \
+do {    \
+    if (ll == ELL_DEBUG) printf("\033[32m", ##__VA_ARGS__);         \
+    elseif (ll == ELL_WARN) printf("\033[33m", ##__VA_ARGS__);     \
+    elseif (ll == ELL_ERROR) printf("\033[31m", ##__VA_ARGS__);     \
+    else printf(##__VA_ARGS__);     \
+} while (0);
+
 // Printer::print
 #ifdef _WINDOWS_PLATFORM_
-void Printer::print(const char* msg) {
+void Printer::print(const char* msg, int ll) {
     OutputDebugStringA(msg);
-    printf("%s\n", msg);
+    PRINT_COLOR("%s\n\033[0m", msg);
 }
 #elif defined(_ANDROID_PLATFORM_)
-void Printer::print(const char* msg) {
+void Printer::print(const char* msg, int ll) {
     // Android logcat restricts log-output and cuts the rest of the message away
     // But we want it all. On my device max-len is 1023 (+ 0 byte).
     // Some websites claim a limit of 4096 so maybe different numbers on
@@ -40,26 +55,28 @@ void Printer::print(const char* msg) {
     size_t start = 0;
     while (msgLen - start > maxLogLen) {
         __android_log_print(ANDROID_LOG_DEBUG, "", "[%d %d] %.*s\n", getpid(), gettid(), maxLogLen, &msg[start]);
-        printf("[%d,%d] %.*s\n", getpid(), gettid(), maxLogLen, &msg[start]);
+        PRINT_COLOR("[%d,%d] %.*s\n\033[0m", getpid(), gettid(), maxLogLen, &msg[start]);
         start += maxLogLen;
     }
     __android_log_print(ANDROID_LOG_DEBUG, "", "[%d %d] %s\n", getpid(), gettid(), &msg[start]);
     // print to stdout either
-    printf("[%d %d] %s\n", getpid(), gettid(), &msg[start]);
+    PRINT_COLOR("[%d %d] %s\n\033[0m", getpid(), gettid(), &msg[start]);
 }
 #elif defined(_OSX_PLATFORM_)
-void Printer::print(const char* msg) {
+void Printer::print(const char* msg, int ll) {
     uint64_t tid;
     pthread_threadid_np(NULL, &tid);
-    printf("[%d %llu] %s\n", getpid(), tid, msg);
+    PRINT_COLOR("[%d %llu] %s\n\033[0m", getpid(), tid, msg);
 }
 #elif defined(_LINUX_PLATFORM_)
-void Printer::print(const char* msg) {
+void Printer::print(const char* msg, int ll) {
     pid_t tid = syscall(SYS_gettid);
-    printf("[%d %d] %s\n", getpid(), tid, msg);
+    PRINT_COLOR("[%d %d] %s\n\033[0m", getpid(), tid, msg);
 }
 #else
-void Printer::print(const char* msg) { printf("Unsupported operation system!!!"); }
+void Printer::print(const char* msg, int ll) {
+    PRINT_COLOR("Unsupported operation system!!!\n\033[0m", ELL_ERROR);
+}
 #endif
 
 void Trace::init() {

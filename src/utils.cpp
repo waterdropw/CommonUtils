@@ -88,13 +88,13 @@ void _log_print(LogLevel ll, const char *tag, const char *fmt, ...) {
 
     switch (ll) {
         case LogLevel::DEBUG:
-            LL_STR = "[DEBUG] ";
+            LL_STR = "DEBUG";
             break;
         case LogLevel::WARN:
-            LL_STR = "[WARN] ";
+            LL_STR = "WARN";
             break;
         case LogLevel::ERROR:
-            LL_STR = "[ERROR] ";
+            LL_STR = "ERROR";
             break;
         default:
             LL_STR = "";
@@ -105,12 +105,13 @@ void _log_print(LogLevel ll, const char *tag, const char *fmt, ...) {
     va_end(ap);
     std::string tag_str = "[";
     tag_str += tag;
-    tag_str += "]";
     std::string message(tag_str);
+    message += "/";
     message += LL_STR;
     message += msg;
+    message += "] ";
 
-    os::Printer::print(message.c_str());
+    os::Printer::print(message.c_str(), ll);
 }
 
 }  // namespace io

@@ -13,7 +13,7 @@ namespace os {
 class Printer {
    public:
     // prints out a string to the console out stdout or debug log or whatever
-    static void print(const char *msg);
+    static void print(const char *msg, int ll);
 };
 
 class Trace {
