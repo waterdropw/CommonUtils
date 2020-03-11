@@ -105,13 +105,13 @@ void _log_print(LogLevel ll, const char *tag, const char *fmt, ...) {
     va_end(ap);
     std::string tag_str = "[";
     tag_str += tag;
+    tag_str += "/";
+    tag_str += LL_STR;
+    tag_str += "] ";
     std::string message(tag_str);
-    message += "/";
-    message += LL_STR;
     message += msg;
-    message += "] ";
 
-    os::Printer::print(message.c_str(), ll);
+    os::Printer::print(ll, message.c_str());
 }
 
 }  // namespace io
