@@ -13,11 +13,11 @@
 
 /* ================ logging ================  */
 // *LOG_TAG* MUST BE defined before *#include "utils.h"*
-#define _log_print_ utils::io::_log_print
-#define logp(fmt, ...)      _log_print_(utils::io::LogLevel::DEBUG, LOG_TAG, fmt, ##__VA_ARGS__)
-#define logd(fmt, ...)      _log_print_(utils::io::LogLevel::DEBUG, LOG_TAG, fmt, ##__VA_ARGS__)
-#define logw(fmt, ...)      _log_print_(utils::io::LogLevel::WARN,  LOG_TAG, fmt, ##__VA_ARGS__)
-#define loge(fmt, ...)      _log_print_(utils::io::LogLevel::ERROR, LOG_TAG, fmt, ##__VA_ARGS__)
+#define _log_print_ xbwee::io::_log_print
+#define logp(fmt, ...)      _log_print_(xbwee::io::LogLevel::DEBUG, LOG_TAG, fmt, ##__VA_ARGS__)
+#define logd(fmt, ...)      _log_print_(xbwee::io::LogLevel::DEBUG, LOG_TAG, fmt, ##__VA_ARGS__)
+#define logw(fmt, ...)      _log_print_(xbwee::io::LogLevel::WARN,  LOG_TAG, fmt, ##__VA_ARGS__)
+#define loge(fmt, ...)      _log_print_(xbwee::io::LogLevel::ERROR, LOG_TAG, fmt, ##__VA_ARGS__)
 
 
 /* ================ systrace ================  */
@@ -36,7 +36,7 @@
 #endif
 
 
-namespace utils {
+namespace xbwee {
 namespace io {
 
 /**

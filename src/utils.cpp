@@ -8,7 +8,7 @@
 #include "os.h"
 #include "utils.h"
 
-namespace utils {
+namespace xbwee {
 namespace io {
 
 // Used to control enable/disable which one to be printed out
@@ -115,4 +115,4 @@ void _log_print(LogLevel ll, const char *tag, const char *fmt, ...) {
 }
 
 }  // namespace io
-}  // namespace utils
+}  // namespace xbwee

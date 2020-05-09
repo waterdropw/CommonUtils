@@ -7,7 +7,7 @@
 
 #include <stdint.h>
 
-namespace utils {
+namespace xbwee {
 namespace os {
 
 class Printer {
@@ -35,6 +35,6 @@ class Trace {
 };
 
 }  // namespace os
-}  // namespace utils
+}  // namespace xbwee
 
 #endif  // __OS_H_INCLUDED__

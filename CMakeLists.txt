@@ -20,7 +20,7 @@ add_library(utils STATIC
     src/utils.cpp
     src/os.cpp
 )
-add_library(COMMON::utils ALIAS utils)
+add_library(xbwee::utils ALIAS utils)
 
 target_compile_features(utils PRIVATE cxx_std_11)
 target_compile_options(utils PRIVATE $<$<CXX_COMPILER_ID:GNU>:-Wall>)

@@ -20,7 +20,7 @@
 #endif
 
 
-namespace utils {
+namespace xbwee {
 namespace os {
 
 ///! MUST BE identity with "utils.h"
@@ -69,7 +69,7 @@ void Printer::print(int ll, const char* msg) {
         PRINT_COLOR(ll, "[%d,%d] %.*s\n\033[0m", getpid(), gettid(), maxLogLen, &msg[start]);
         start += maxLogLen;
     }
-    __android_log_print(all, LOG_TAG.c_str(), "[%d %d] %s\n", getpid(), gettid(), &msg[start]);
+    __android_log_print(android_ll, LOG_TAG.c_str(), "[%d %d] %s\n", getpid(), gettid(), &msg[start]);
     // print to stdout either
     PRINT_COLOR(ll, "[%d %d] %s\n\033[0m", getpid(), gettid(), &msg[start]);
 }
@@ -166,4 +166,4 @@ void Trace::end() {
 }
 
 }  // namespace os
-}  // namespace utils
+}  // namespace xbwee
