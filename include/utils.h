@@ -10,6 +10,7 @@
 #include <string>
 #include <fcntl.h>
 #include <chrono>
+#include <algorithm>
 
 /* ================ logging ================  */
 // *LOG_TAG* MUST BE defined before *#include "utils.h"*
